@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>387319528111-kkcgdlud1evhq3esgu585jvlbu98cjbs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.387319528111-kkcgdlud1evhq3esgu585jvlbu98cjbs</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA-TQ1iqnGiWdgD8RjhkM29XIvNLdgtL_U</string>
+	<key>GCM_SENDER_ID</key>
+	<string>387319528111</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.imub.football</string>
+	<key>PROJECT_ID</key>
+	<string>project-48a20</string>
+	<key>STORAGE_BUCKET</key>
+	<string>project-48a20.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:387319528111:ios:9fa8fe59ca94ecb837f25a</string>
+</dict>
+</plist>
