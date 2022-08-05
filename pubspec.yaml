@@ -36,6 +36,9 @@ dependencies:
   cloud_firestore: ^3.1.10
   firebase_auth: ^3.3.11
   provider: ^6.0.2
+  firebase_storage: ^10.2.17
+  image_picker: ^0.8.5+3
+  calendar_calendar: ^1.0.0
 
 dev_dependencies:
   flutter_test:

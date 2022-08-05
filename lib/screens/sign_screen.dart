@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:football/screens/main_screen.dart';
 
 class Signscreen extends StatefulWidget {
   const Signscreen({Key? key}) : super(key: key);
@@ -14,6 +14,8 @@ class _SignscreenState extends State<Signscreen> {
 
   bool isSignupScreen = true;
   final _formKey = GlobalKey<FormState>();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmController = TextEditingController();
   String userEmail = '';
   String userName = '';
   String userPass = '';
@@ -44,11 +46,8 @@ class _SignscreenState extends State<Signscreen> {
               duration: Duration(milliseconds: 500),
               curve: Curves.easeIn,
               padding: EdgeInsets.all(20.0),
-              height: isSignupScreen ? 340.0 : 250.0,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width - 40,
+              height: isSignupScreen ? 410.0 : 250.0,
+              width: MediaQuery.of(context).size.width - 40,
               margin: EdgeInsets.symmetric(horizontal: 20.0),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -79,7 +78,7 @@ class _SignscreenState extends State<Signscreen> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color:
-                                isSignupScreen ? Colors.grey : Colors.black,
+                                    isSignupScreen ? Colors.grey : Colors.black,
                               ),
                             ),
                             if (!isSignupScreen)
@@ -91,7 +90,7 @@ class _SignscreenState extends State<Signscreen> {
                               )
                           ],
                         ),
-                      ),
+                      ), // 로그인 탭
                       GestureDetector(
                         onTap: () {
                           setState(() {
@@ -106,7 +105,7 @@ class _SignscreenState extends State<Signscreen> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color:
-                                isSignupScreen ? Colors.black : Colors.grey,
+                                    isSignupScreen ? Colors.black : Colors.grey,
                               ),
                             ),
                             if (isSignupScreen)
@@ -118,7 +117,7 @@ class _SignscreenState extends State<Signscreen> {
                               )
                           ],
                         ),
-                      ),
+                      ), // 회원가입
                     ],
                   ),
                   if (isSignupScreen)
@@ -147,12 +146,12 @@ class _SignscreenState extends State<Signscreen> {
                                   prefixIcon: Icon(Icons.email),
                                   enabledBorder: OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.grey),
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0))),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.grey),
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0))),
                                   hintText: '이메일',
@@ -181,12 +180,12 @@ class _SignscreenState extends State<Signscreen> {
                                   prefixIcon: Icon(Icons.account_circle),
                                   enabledBorder: OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.grey),
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0))),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.grey),
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0))),
                                   hintText: '아이디',
@@ -206,6 +205,7 @@ class _SignscreenState extends State<Signscreen> {
                                 }
                                 return null;
                               },
+                              controller: passwordController,
                               onSaved: (value) {
                                 userPass = value!;
                               },
@@ -216,12 +216,12 @@ class _SignscreenState extends State<Signscreen> {
                                   prefixIcon: Icon(Icons.lock),
                                   enabledBorder: OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.grey),
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0))),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.grey),
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0))),
                                   hintText: '비밀번호',
@@ -229,10 +229,43 @@ class _SignscreenState extends State<Signscreen> {
                                       fontSize: 14, color: Colors.grey),
                                   contentPadding: EdgeInsets.all(10)),
                             ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            TextFormField(
+                              obscureText: true,
+                              key: ValueKey(4),
+                              validator: (value) {
+                                if (passwordController.text == '') {
+                                  return '비밀번호를 입력하세요.';
+                                }
+                                if (passwordController.text != value) {
+                                  return '비밀번호가 다릅니다.';
+                                }
+                                return null;
+                              },
+                              controller: confirmController,
+                              decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.lock),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(35.0))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(35.0))),
+                                  hintText: '비밀번호 확인',
+                                  hintStyle: TextStyle(
+                                      fontSize: 14, color: Colors.grey),
+                                  contentPadding: EdgeInsets.all(10)),
+                            ),
                           ],
                         ),
                       ),
-                    ),
+                    ), // 회원가입 화면
                   if (!isSignupScreen)
                     Container(
                       margin: EdgeInsets.only(top: 20),
@@ -241,7 +274,7 @@ class _SignscreenState extends State<Signscreen> {
                         child: Column(
                           children: [
                             TextFormField(
-                              key: ValueKey(4),
+                              key: ValueKey(5),
                               onSaved: (value) {
                                 userEmail = value!;
                               },
@@ -252,12 +285,12 @@ class _SignscreenState extends State<Signscreen> {
                                   prefixIcon: Icon(Icons.account_circle),
                                   enabledBorder: OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.grey),
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0))),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.grey),
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0))),
                                   hintText: '아이디',
@@ -270,7 +303,7 @@ class _SignscreenState extends State<Signscreen> {
                             ),
                             TextFormField(
                               obscureText: true,
-                              key: ValueKey(5),
+                              key: ValueKey(6),
                               onSaved: (value) {
                                 userPass = value!;
                               },
@@ -281,12 +314,12 @@ class _SignscreenState extends State<Signscreen> {
                                   prefixIcon: Icon(Icons.lock),
                                   enabledBorder: OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.grey),
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0))),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide:
-                                      BorderSide(color: Colors.grey),
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(35.0))),
                                   hintText: '패스워드',
@@ -297,15 +330,15 @@ class _SignscreenState extends State<Signscreen> {
                           ],
                         ),
                       ),
-                    ),
+                    ), // 로그인 화면
                 ],
               ),
             ),
-          ), // 텍스트 필
+          ), // 텍스트 필드
           AnimatedPositioned(
             duration: Duration(milliseconds: 500),
             curve: Curves.easeIn,
-            top: isSignupScreen ? 480 : 390,
+            top: isSignupScreen ? 550 : 390,
             right: 0,
             left: 0,
             child: Center(
@@ -319,51 +352,57 @@ class _SignscreenState extends State<Signscreen> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(50.0)),
                   child: GestureDetector(
-                    onTap: () async{
+                    onTap: () async {
                       if (isSignupScreen) {
                         _tryValidation();
-
                         try {
-                          final newUser = await _authentication
-                              .createUserWithEmailAndPassword(
-                              email: userEmail,
-                              password: userPass
-                          );
-
-                          if(newUser.user != null) {
-                            Navigator.push(context, MaterialPageRoute(builder: (context){
-                              return MainScreen();
-                            }),
-                            );
+                          if (passwordController.text ==
+                              confirmController.text) {
+                            final newUser = await _authentication
+                                .createUserWithEmailAndPassword(
+                                    email: userEmail, password: userPass);
+                            await FirebaseFirestore.instance.collection('user').doc(newUser.user!.uid)
+                            .set({
+                              'username' : userName,
+                              'email' : userEmail
+                            });
+                            FirebaseAuth.instance.currentUser
+                                ?.sendEmailVerification();
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text('회원가입이 완료되었습니다.'),
+                                backgroundColor: Colors.blue));
+                            setState(() {
+                              isSignupScreen = false;
+                            });
                           }
+                          passwordController.text = '';
+                          confirmController.text = '';
                         } catch (e) {
                           print(e);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text('이메일 또는 비밀번호가 잘못되었습니다.'),
-                                  backgroundColor: Colors.blue)
-                          );
                         }
                       }
-                      try {
-                        if (!isSignupScreen) {
-                          _tryValidation();
+                      if (!isSignupScreen) {
+                        _tryValidation();
+                        try {
                           final newUser =
-                          await _authentication.signInWithEmailAndPassword(
+                              await _authentication.signInWithEmailAndPassword(
                             email: userEmail,
                             password: userPass,
                           );
-                          if (newUser.user != null) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return MainScreen();
-                              }),
-                            );
+
+                          if (FirebaseAuth
+                                  .instance.currentUser?.emailVerified ==
+                              false) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text('이메일 인증을 해주세요.'),
+                                backgroundColor: Colors.blue));
                           }
+                        } catch (e) {
+                          print(e);
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('이메일 또는 비밀번호가 잘못되었습니다.'),
+                              backgroundColor: Colors.blue));
                         }
-                      } catch(e) {
-                        print(e);
                       }
                     },
                     child: Container(
